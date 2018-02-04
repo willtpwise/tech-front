@@ -22,7 +22,7 @@
     </el-form-item>
 
     <div class="submit">
-      <submit @click.native="requestSend" :sending="attempt > 0" />
+      <submit @click.native="requestSend($event)" :sending="attempt > 0" />
     </div>
 
   </el-form>
@@ -103,7 +103,8 @@ export default {
       }
     },
 
-    requestSend () {
+    requestSend (e) {
+      e.preventDefault()
       if (this.message.to.length === 0) {
         this.$alert('Your email is missing a recipient', 'No recipient', {
           confirmButtonText: 'Close',

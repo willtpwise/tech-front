@@ -7,10 +7,10 @@
 
     <el-form ref="form" :model="options" label-width="120px">
       <el-form-item label="Show CC field">
-        <el-switch v-model="options.cc"></el-switch>
+        <el-switch v-model="options.cc" name="options_cc"></el-switch>
       </el-form-item>
       <el-form-item label="Show BCC field">
-        <el-switch v-model="options.bcc"></el-switch>
+        <el-switch v-model="options.bcc" name="options_bcc"></el-switch>
       </el-form-item>
     </el-form>
 

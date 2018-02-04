@@ -49,8 +49,7 @@ export default {
 
   watch: {
     heading () {
-      var title = document.querySelector('title')
-      title.textContent = `Email | ${this.heading}`
+      document.title = `Email | ${this.heading}`
     }
   },
 

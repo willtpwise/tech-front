@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="address" :class='{"in-focus": focus, "is-invalid": $v.input.$invalid}'>
     <div class="address-field">
-      <transition-group name="slide-fade" class="address-selections">
-        <div v-for='(item, index) in internalValue' class="address-selection" :key="index">
+      <div name="slide-fade" class="address-selections">
+        <div v-for='(item, index) in internalValue' class="address-selection" :key="item">
           {{item}}
           <button
             type='button'
@@ -12,7 +12,7 @@
             <i class="far fa-times-circle"></i>
           </button>
         </div>
-      </transition-group>
+      </div>
 
       <input
         :type="type"
@@ -29,14 +29,9 @@
 </template>
 
 <script>
-import FieldError from './FieldError.vue'
 import { email } from 'vuelidate/lib/validators'
 
 export default {
-  components: {
-    FieldError
-  },
-
   props: {
     name: {
       type: String,
