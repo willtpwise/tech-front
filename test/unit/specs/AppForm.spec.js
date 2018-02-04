@@ -91,7 +91,7 @@ describe('AppForm.vue', () => {
     vm.retry()
     vm.retry()
 
-    vm.$el.querySelector('.submit button').click()
+    vm.$el.querySelector('.actions-submit button').click()
 
     expect(vm.fail.mock.calls.length)
       .toEqual(1)

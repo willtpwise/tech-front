@@ -21,8 +21,13 @@
       <el-input name="Message" type="textarea" :rows="13" v-model="message.body" />
     </el-form-item>
 
-    <div class="submit">
-      <submit @click.native="requestSend($event)" :sending="attempt > 0" />
+    <div class="actions">
+      <div class="actions-online">
+        <online-status />
+      </div>
+      <div class="actions-submit">
+        <submit @click.native="requestSend($event)" :sending="attempt > 0" />
+      </div>
     </div>
 
   </el-form>
@@ -31,6 +36,7 @@
 <script>
 import Submit from './Submit'
 import AddressField from './AddressField'
+import OnlineStatus from './OnlineStatus'
 
 import { mapState } from 'vuex'
 
@@ -48,7 +54,8 @@ export default {
 
   components: {
     Submit,
-    AddressField
+    AddressField,
+    OnlineStatus
   },
 
   methods: {
@@ -56,7 +63,9 @@ export default {
       this.attempt++
       this.$store.dispatch('messages/send', this.message)
         .then((response) => {
-          if (response.data.status) {
+          if (response.status === 'enqueued') {
+            this.offline()
+          } else if (response.data.status) {
             this.success()
           } else {
             this.retry()
@@ -88,11 +97,23 @@ export default {
     },
 
     success () {
-      this.attempt = 0
       this.$message({
         type: 'info',
         message: 'Your message has been sent'
       })
+      this.reset()
+    },
+
+    offline () {
+      this.$message({
+        type: 'info',
+        message: "Message will be sent once you reconnect"
+      })
+      this.reset()
+    },
+
+    reset () {
+      this.attempt = 0
       this.$store.dispatch('messages/clear')
       this.focusOn('input[name="To"]')
     },
@@ -131,9 +152,25 @@ export default {
 }
 </script>
 
-<style lang="css">
-.submit {
-  text-align: right;
+<style lang="scss">
+.actions {
+  display: table;
+  width: 100%;
+
+  .actions-online,
+  .actions-submit {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .actions-online {
+    text-align: left;
+    padding-left: 65px;
+  }
+
+  .actions-submit {
+    text-align: right;
+  }
 }
 
 .el-form-item {
