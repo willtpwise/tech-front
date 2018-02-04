@@ -1,5 +1,5 @@
 import qs from 'qs'
-import axios from 'axios'
+import _axios from '@/utils/axios'
 
 export default {
   namespaced: true,
@@ -30,9 +30,9 @@ export default {
   actions: {
     send (context, payload) {
       if (navigator.onLine) {
-        return axios.post('http://localhost:3000/messages', qs.stringify(payload))
+        return _axios.post('/messages', qs.stringify(payload))
       } else {
-        return new Promise(function(resolve) {
+        return new Promise(function (resolve) {
           const flush = () => {
             context.dispatch('sendEnqueued')
             window.removeEventListener('online', flush)
