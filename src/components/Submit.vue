@@ -1,5 +1,5 @@
 <template lang="html">
-  <el-button type="primary" :disabled="sending">
+  <el-button role="submit" type="primary" :disabled="sending">
     <template v-if='sending'>Sending...</template>
     <template v-else>Send</template>
   </el-button>

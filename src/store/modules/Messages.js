@@ -1,19 +1,17 @@
 import qs from 'qs'
 import axios from 'axios'
 
-const model = {
-  to: [],
-  cc: [],
-  bcc: [],
-  body: '',
-  subject: ''
-}
-
 export default {
   namespaced: true,
 
   state: {
-    message: Object.assign({}, model)
+    message: {
+      to: [],
+      cc: [],
+      bcc: [],
+      body: '',
+      subject: ''
+    }
   },
 
   mutations: {
@@ -28,7 +26,13 @@ export default {
     },
 
     clear (context) {
-      context.commit('setMessage', Object.assign({}, model))
+      context.commit('setMessage', {
+        to: [],
+        cc: [],
+        bcc: [],
+        body: '',
+        subject: ''
+      })
     }
   }
 }

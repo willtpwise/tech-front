@@ -9,7 +9,7 @@
           round
           type="primary"
           icon="el-icon-more"
-          @click="openOptions"
+          @click.native="options.visible = true"
           aria-label="Options">
         </el-button>
       </el-tooltip>
@@ -22,12 +22,6 @@ import { mapState } from 'vuex'
 export default {
   props: {
     heading: String
-  },
-
-  methods: {
-    openOptions () {
-      this.options.visible = true
-    }
   },
 
   computed: {
