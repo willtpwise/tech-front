@@ -1,15 +1,13 @@
 <template lang="html">
-  <el-tooltip class="item" effect="dark" :content="help" placement="top-start">
-    <div class="online-status" :class="{offline : !status}">
-      <span class="online-status-icon">
-        <i class="fas fa-wifi" aria-hidden="true"></i>
-      </span>
-      <div class="online-status-state">
-        <template v-if='status'>Online</template>
-        <template v-else>Offline <small>(Attempting to reconnect)</small></template>
-      </div>
-    </div>
-  </el-tooltip>
+  <div class="online-status" :class="{offline : !status}" :aria-label='help'>
+    <span class="online-status-icon">
+      <i class="fas fa-wifi" aria-hidden="true"></i>
+    </span>
+    <span class="online-status-state">
+      <template v-if='status'>Online</template>
+      <template v-else>Offline <small>(Attempting to reconnect)</small></template>
+    </span>
+  </div>
 </template>
 
 <script>
