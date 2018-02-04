@@ -79,19 +79,22 @@ export default {
 
     keyHandler (e) {
       // Commit the input
-      if ((e.key === 'Enter' || e.key === 'Space') && this.input.length > 0) {
+      if (e.code === 'Enter' && this.input.length > 0) {
         e.preventDefault()
         this.add(this.input)
       }
 
       // Delete an item
-      if (e.key === 'Backspace' && this.internalValue.length > 0 && this.input.length === 0) {
+      if (e.code === 'Backspace' && this.internalValue.length > 0 && this.input.length === 0) {
         this.remove(this.internalValue.length - 1)
       }
     },
 
     focusHandler () {
       this.focus = true
+      if (this.input === '') {
+        this.dirty = false
+      }
     },
 
     blurHandler () {
