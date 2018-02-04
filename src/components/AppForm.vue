@@ -63,7 +63,9 @@ export default {
       this.attempt++
       this.$store.dispatch('messages/send', this.message)
         .then((response) => {
-          if (response.data.status) {
+          if (response.status === 'enqueued') {
+            this.offline()
+          } else if (response.data.status) {
             this.success()
           } else {
             this.retry()
@@ -95,11 +97,23 @@ export default {
     },
 
     success () {
-      this.attempt = 0
       this.$message({
         type: 'info',
         message: 'Your message has been sent'
       })
+      this.reset()
+    },
+
+    offline () {
+      this.$message({
+        type: 'info',
+        message: "Message will be sent once you reconnect"
+      })
+      this.reset()
+    },
+
+    reset () {
+      this.attempt = 0
       this.$store.dispatch('messages/clear')
       this.focusOn('input[name="To"]')
     },

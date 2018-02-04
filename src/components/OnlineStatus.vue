@@ -1,9 +1,15 @@
 <template lang="html">
-  <div class="online-status" :class="{online : status}">
-    <i class="fas fa-wifi"></i>
-    <span v-if='status'>Online</span>
-    <span v-else>Offline</span>
-  </div>
+  <el-tooltip class="item" effect="dark" :content="help" placement="top-start">
+    <div class="online-status" :class="{offline : !status}">
+      <span class="online-status-icon">
+        <i class="fas fa-wifi" aria-hidden="true"></i>
+      </span>
+      <div class="online-status-state">
+        <template v-if='status'>Online</template>
+        <template v-else>Offline <small>(Attempting to reconnect)</small></template>
+      </div>
+    </div>
+  </el-tooltip>
 </template>
 
 <script>
@@ -11,7 +17,17 @@ export default {
 
   data () {
     return {
-      status: true
+      status: navigator.onLine
+    }
+  },
+
+  computed: {
+    help () {
+      if (this.status) {
+        return 'Currently online'
+      } else {
+        return 'Currently offline. Trying to reconnect.'
+      }
     }
   },
 
@@ -30,9 +46,10 @@ export default {
 <style lang="scss">
 .online-status {
   font-size: 14px;
+  display: inline-block;
 
-  &.online {
-    color: #969696
+  &.offline {
+    color: #969696;
   }
 }
 </style>
