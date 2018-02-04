@@ -5,7 +5,7 @@
     :visible.sync="options.visible"
     :before-close="save">
 
-    <el-form ref="form" :model="options" label-width="120px">
+    <el-form ref="form" :model="options" id="options-form" label-width="120px">
       <el-form-item label="Show CC field">
         <el-switch v-model="options.cc" name="options_cc"></el-switch>
       </el-form-item>
