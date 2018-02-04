@@ -142,6 +142,10 @@ export default {
     border-radius: 4px;
   }
 
+  &:hover .address-field {
+    border-color: $--color-text-placeholder;
+  }
+
   &.in-focus .address-field {
     border-color: $--color-primary;
   }
