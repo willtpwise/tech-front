@@ -2,23 +2,23 @@
   <el-form ref="form" :model="message" label-width="65px">
 
     <el-form-item label="To">
-      <address-field name="To" v-model='message.to' validate="email" />
+      <address-field name="To" v-model='message.to' />
     </el-form-item>
 
     <el-form-item label="CC" v-if='options.cc'>
-      <address-field name="CC" v-model='message.cc' validate="email" />
+      <address-field name="CC" v-model='message.cc' />
     </el-form-item>
 
     <el-form-item label="BCC" v-if='options.bcc'>
-      <address-field name="BCC" v-model='message.bcc' validate="email" />
+      <address-field name="BCC" v-model='message.bcc' />
     </el-form-item>
 
     <el-form-item label="Subject">
-      <el-input name="Subject" v-model="message.subject"></el-input>
+      <el-input name="Subject" v-model="message.subject" />
     </el-form-item>
 
     <el-form-item label="Message">
-      <el-input name="Message" type="textarea" :rows="13" v-model="message.body"></el-input>
+      <el-input name="Message" type="textarea" :rows="13" v-model="message.body" />
     </el-form-item>
 
     <div class="submit">
@@ -94,6 +94,7 @@ export default {
         message: 'Your message has been sent'
       })
       this.$store.dispatch('messages/clear')
+      this.focusOn('input[name="To"]')
     },
 
     focusOn (selector) {

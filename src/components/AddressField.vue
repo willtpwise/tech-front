@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="address" :class='{"in-focus": focus, "is-invalid": $v.input.$invalid}'>
+  <div class="address" :class='{"in-focus": focus, "is-invalid": $v.input.$invalid && dirty}'>
     <div class="address-field">
       <div name="slide-fade" class="address-selections">
         <div v-for='(item, index) in internalValue' class="address-selection" :key="item">
@@ -15,20 +15,26 @@
       </div>
 
       <input
-        :type="type"
+        type="email"
         :name="name"
         :id="name"
+        :v-popover:="'addressField' + _uid"
         class="address-input"
         @keydown="keyHandler($event)"
         @focus="focusHandler"
         @blur="blurHandler"
         v-model='input'
-        autocomplete="off">
+        autocomplete="false">
     </div>
+
+    <field-error
+      message="This email doesn't appear to be valid"
+      v-model='error' />
   </div>
 </template>
 
 <script>
+import FieldError from './FieldError'
 import { email } from 'vuelidate/lib/validators'
 
 export default {
@@ -43,31 +49,26 @@ export default {
       default () {
         return []
       }
-    },
-
-    type: {
-      type: String,
-      default: 'text'
-    }
-  },
-
-  validations: {
-    input: {
-      email
     }
   },
 
   data () {
     return {
       input: '',
-      focus: false
+      focus: false,
+      dirty: false
     }
   },
 
   methods: {
     add (item) {
-      if (item !== '' && !this.$v.input.$invalid) {
+      if (item === '') {
+        return
+      }
+
+      if (!this.$v.input.$invalid) {
         this.internalValue.push(item)
+        this.dirty = false
         this.input = ''
       }
     },
@@ -96,6 +97,7 @@ export default {
     blurHandler () {
       this.add(this.input)
       this.focus = false
+      this.dirty = true
     }
   },
 
@@ -108,7 +110,21 @@ export default {
       set (state) {
         this.$emit('input', state)
       }
+    },
+
+    error () {
+      return this.$v.input.$invalid && this.dirty
     }
+  },
+
+  validations: {
+    input: {
+      email
+    }
+  },
+
+  components: {
+    FieldError
   }
 }
 </script>
@@ -185,6 +201,10 @@ export default {
   .slide-fade-enter, .slide-fade-leave-to {
     transform: translateX(10px);
     opacity: 0;
+  }
+
+  .el-popover {
+    right: 0;
   }
 }
 </style>
