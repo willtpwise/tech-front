@@ -16,20 +16,27 @@ use of:
 1. [Jest](https://facebook.github.io/jest/) for unit tests
 1. [Nightwatch](http://nightwatchjs.org/) for E2E tests
 
-The main architectural choices for Vuex and Element were simple. Vuex provided a
+The main architectural choice for Vue.js came down to the simplicity of the
+framework. I find it's the easiest JavaScript framework to read and write, so
+it seemed ideal for this app.
+
+The choice for Vuex was simple. Vuex provided a
 scalable option for state management... At this point, the app can only send
-emails. With Vuex, scaling into a full-blown email client is within reach. Element
-was actually my send choice, originally I considered [Vuetify](https://vuetifyjs.com),
+emails. With Vuex, scaling into a full-blown email client is within reach.
+
+Element was actually my second choice, originally I considered [Vuetify](https://vuetifyjs.com),
 but decided against it as I felt it was oversized for what the project required
 (or could require in the future).
 
-Jest is a fast and easy to write testing framework. I don't claim to be an expert
-in testing, but I find Jest to be the easiest solution out there for unit testing
-Vue components.
+Jest and Nightwatch are fast and easy to write testing frameworks.
+I don't claim to be an expert in testing, but I found Jest has a particularly
+easy-to-write api for testing Vue components.
 
-Nightwatch has a good reputation as far as E2E testing goes. Again, I don't claim
-to be an expert in testing, but Nightwatch is easy enough to understand and the
-API is clean.
+One feature within the app is the locally stored options for showing / hiding the 'cc'
+and 'bcc' fields. Ideally this feature would store the user's choices on the
+backend (associated to their user account). However, since there are no user
+accounts at this point, I've decided to trade this off and use local storage
+instead.
 
 ## Features
 1. Multiple recipients (across To, CC & BCC)
