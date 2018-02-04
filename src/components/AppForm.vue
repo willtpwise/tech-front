@@ -107,7 +107,7 @@ export default {
     offline () {
       this.$message({
         type: 'info',
-        message: "Message will be sent once you reconnect"
+        message: 'Message will be sent once you reconnect'
       })
       this.reset()
     },
